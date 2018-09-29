@@ -1,4 +1,4 @@
-
+const xhr = new XMLHttpRequest();
 function TypeWorker(typework,firstname,secondname,thirdname,age,sex){
 	this.typework = typework;
 	this.firstname = firstname;
@@ -128,7 +128,8 @@ function getSex(){
 }
 
 function infoObject(val){
-	let objStringified = JSON.stringify(arrObj[val]);
+	
+	let objStringified = JSON.stringify(getRequest()[val].id);
     let objStringifiedAndEncoded = encodeURIComponent(objStringified);
             
     let a = document.getElementsByTagName("a")[val];
@@ -198,15 +199,13 @@ function deleteRequest(item){
 }
 
 function getRequest (){
-	let x = new XMLHttpRequest();
-	x.open("GET", "/worker-man/", false);
+	xhr.open("GET", "/worker-man/", false);
 	
-	x.send();
-	return JSON.parse(x.responseText);
+	xhr.send();
+	return JSON.parse(xhr.responseText);
 }
 
 function putRequest (items, postArgument) {
-	let xhr = new XMLHttpRequest();
 	xhr.open("PUT", "/worker-man/"+items, false);
 	xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
 	let json = JSON.stringify(postArgument);
@@ -214,13 +213,9 @@ function putRequest (items, postArgument) {
 }
 
 function postRequest (postArgument) {
-	let xhr = new XMLHttpRequest();
-
 	xhr.open("POST", '/worker-man', false)
-
 	xhr.setRequestHeader('Content-type', 'application/json');
 	let json = JSON.stringify(postArgument);
-
 	xhr.send(json);
 }
 

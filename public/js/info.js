@@ -1,8 +1,17 @@
-let		objStringifiedAndEncoded = location.search.substr(1), 
-      	objStringified = decodeURIComponent(objStringifiedAndEncoded),
-        obj = JSON.parse(objStringified);
+const xhr = new XMLHttpRequest();
+let		indStringifiedAndEncoded = location.search.substr(1), 
+      	indStringified = decodeURIComponent(indStringifiedAndEncoded),
+        ind = JSON.parse(indStringified),
+        obj = getRequest (ind);
+
 writeInfo(obj);
 setStyle();
+function getRequest (index){
+	xhr.open("GET", "/worker-man/"+index, false);
+	xhr.send();
+	return JSON.parse(xhr.responseText);
+}
+
 function writeInfo (object) {
 	let setTable = document.createElement("table");
 	setTable.id = "styleTable";
@@ -22,16 +31,17 @@ function writeInfo (object) {
 	document.body.appendChild(btnhome);
 	document.getElementById("home").style.textDecoration="none";
 	document.getElementById("home").style.color="#ffdbae";
+	document.getElementById("spanHome").style.margin="10px auto";
 }
  function setStyle(){
  	let setTable = document.getElementById("styleTable");
  	let element = document.getElementsByTagName("td");
  	setTable.style.borderCollapse="collapse";
- 	setTable.style.marginTop="10%";
+ 	setTable.style.marginTop="5%";
 	setTable.style.tableLayout="fixed";
 	setTable.style.width="70%";
 	setTable.style.fontSize="1.1em";
 	for(let i = 0 ; i<element.length; i++){
-		element[i].style.cssText="border: 1px solid #aeaeae; \ text-align: center; \ ";
+		element[i].style.cssText="border: 1px solid #aeaeae; \ text-align: center; \ padding: 0.5em 0; \ ";
 	}
  }
