@@ -1,0 +1,77 @@
+{
+	"type": "Collection",
+	"properties": {
+		"typework": {
+			"name": "typework",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "typework",
+			"order": 0
+		},
+		"firstname": {
+			"name": "firstname",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "firstname",
+			"order": 1
+		},
+		"secondname": {
+			"name": "secondname",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "secondname",
+			"order": 2
+		},
+		"thirdname": {
+			"name": "thirdname",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "thirdname",
+			"order": 3
+		},
+		"age": {
+			"name": "age",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "age",
+			"order": 4
+		},
+		"sex": {
+			"name": "sex",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "sex",
+			"order": 5
+		},
+		"specialty": {
+			"name": "specialty",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "specialty",
+			"order": 6
+		},
+		"experience": {
+			"name": "experience",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "experience",
+			"order": 7
+		},
+		"position": {
+			"name": "position",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "position",
+			"order": 8
+		}
+	}
+}
