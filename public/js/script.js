@@ -1,4 +1,43 @@
 const xhr = new XMLHttpRequest();
+loadWorkerPage();
+function setTableRow (index,name,setclass) {
+	if(setclass==undefined)  setclass="";
+	return "<tr class=\""+setclass+"\"><td><label for=\""+index+"\">"+name+"</label></td><td><input type=\"text\" id=\""+index+"\"> </td></tr>";
+}
+
+function loadWorkerPage(){
+	const box2 = document.createElement('div');
+	box2.id = "setObj";
+	box2.innerHTML+= "<h1>Новый работник</h1>";
+	document.getElementById('myApp').appendChild(box2);
+	const box3 = document.createElement('table');
+	box3.innerHTML+= "<tr><td><label for=\"typeObj\">Тип записи:</label></td><td><select name=\"obj\" id=\"typeObj\" onchange=\"choose()\"><option value=\"\"></option><option value=\"industr\">Рабочий индустриального предприятия</option><option value=\"vehic\">Рабочий транспортного предприятия</option></select></td></tr>";
+	box3.innerHTML+= setTableRow("firstname","Имя");
+	box3.innerHTML+= setTableRow("secondname","Фамилия");
+	box3.innerHTML+= setTableRow("thirdname","Отчество");
+	box3.innerHTML+= setTableRow("setage","Возраст");
+	box3.innerHTML+= setTableRow("experience","Стаж","finfo");
+	box3.innerHTML+= setTableRow("specialty","Специальность","finfo");
+	box3.innerHTML+= "<tr id=\"industrial\"><td><label for=\"positionind\">Должность:</label></td><td><select name=\"objposition\" id=\"positionind\"><option value=\"\"></option><option value=\"engineer\">Инженер</option><option value=\"tokar\">Токарь</option></select></td></tr>";
+	box3.innerHTML+= "<tr id=\"vehicle\"><td><label for=\"positionveh\">Должность:</label></td><td><select name=\"objposition\" id=\"positionveh\"><option value=\"\"></option><option value=\"vehicleman\">Водитель</option><option value=\"buhgalt\">Бухгалтер</option></select></td></tr>";
+	box3.innerHTML+= "<tr><td>Пол</td><td><label for=\"sexman\">Мужчина<input type=\"radio\" id=\"sexman\" value=\"man\" name=\"sex\"></label><label for=\"sexwoman\">Женчина<input type=\"radio\" id=\"sexwoman\" value=\"woman\" name=\"sex\"></label></td></tr>";
+	document.getElementById('setObj').appendChild(box3);
+	document.getElementById("setObj").innerHTML+= "<div id=\"btn\"><button id=\"saveObj\" onclick=\"saveobject(-1)\">Сохранить</button><button id=\"clearObj\" onclick=\"clearobject()\">Отчистить</button></div>";
+	//set view table
+	const box = document.createElement('div');
+	box.id = "viewObj";
+	box.innerHTML+= "<h1>Все работники</h1><table id=\"allobject\"></table>";
+	document.getElementById("myApp").appendChild(box);
+	document.getElementById("myApp").innerHTML+="<button id=\"addObj\">Создать</button>";	
+};
+function loadSetWorkerPage(){
+	const box = document.createElement('div');
+	box.id = "viewObj";
+	box.innerHTML+= "<h1>Все работники</h1><table id=\"allobject\"></table>";
+	document.body.appendChild(box);
+	document.body.innerHTML+="<button id=\"addObj\">Создать</button>";
+};
+
 function TypeWorker(typework,firstname,secondname,thirdname,age,sex){
 	this.typework = typework;
 	this.firstname = firstname;
@@ -32,7 +71,7 @@ function Worker (typework,firstname,secondname,thirdname,age,sex,specialty,exper
 
 Worker.prototype = Object.create(TypeWorker.prototype);
 
-let arrObj = [];
+const arrObj = [];
 for(let i=0;i<getRequest().length;i++){
 	arrObj.push(new Worker(getRequest()[i].typework , getRequest()[i].firstname , getRequest()[i].secondname , getRequest()[i].thirdname , getRequest()[i].age , getRequest()[i].sex , getRequest()[i].specialty , getRequest()[i].experience , getRequest()[i].position));
 }
@@ -113,10 +152,9 @@ function choose() {
 		document.getElementsByClassName('finfo')[1].style.display='none';
    	}
 }
-function getValue(val) {
-	let text = val.options[val.selectedIndex].text;
-    return text;
-}
+
+let getValue = val => val.options[val.selectedIndex].text;
+
 function getSex(){
 	let sexs = document.getElementsByName('sex');
 	for(i=0; i< sexs.length; i++){
@@ -184,13 +222,9 @@ function validate(){
 	} else return true;
 }
 
-function isNumeric( value ) {
-  return (/^[\d]+$/g).test( value );
-}
+let isNumeric  = value => (/^[\d]+$/g).test( value );
 
-function isLetter( value ) {
-  return (/^[A-Za-z0-9А-Яа-я ]+$/g).test( value );
-}
+let isLetter = value => (/^[A-Za-z0-9А-Яа-я ]+$/g).test( value );
 
 function deleteRequest(item){
 	return fetch(/worker-man/ + item, {
@@ -275,3 +309,4 @@ function clearobject(){
      	}
 	}
 }
+
