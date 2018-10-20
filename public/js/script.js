@@ -116,8 +116,7 @@ function editObject(num){
 	document.getElementById("editObj").style.display="none";
 }
 
-let addobject = document.getElementById('addObj');
-addobject.onclick = function(){
+document.getElementById('addObj').addEventListener("click",function(){
 	clearobject();
 	document.getElementById("saveObj").style.display="block";
 	if(document.getElementById('setObj').style.display=="block"){
@@ -127,7 +126,7 @@ addobject.onclick = function(){
 			document.getElementById('setObj').style.display="block";
 			document.getElementById('addObj').textContent="Отмена";
 	}
-}
+});
 
 
 function choose() {
@@ -173,6 +172,7 @@ function infoObject(val){
     let a = document.getElementsByTagName("a")[val];
     a.href = "info.html?" + objStringifiedAndEncoded;     
 }
+
 
 function saveobject(val){
 	let getData = getRequest();
