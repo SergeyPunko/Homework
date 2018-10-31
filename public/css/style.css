@@ -6,6 +6,21 @@
 body{
 	font-family: sans-serif;
 	font-size:18px;
+	background: #4d3730;
+	color: #ffdbae;
+}
+#viewData{
+	display: inline-block;
+	position: relative;
+	bottom: 0;
+	float: right;
+	font-size: 10px;
+	padding: 20px 20px; 
+}
+#addObj{
+	position: absolute;
+	right: 1vw;
+	top:5px;
 }
 #setObj{
 	display: none;
@@ -79,7 +94,7 @@ span, span ~ a{
 	color: red;
 }
 .blue{
-	color: blue;
+	color: #8ad8f1;
 	text-decoration: underline;
 }
 #row{
@@ -90,4 +105,59 @@ span, span ~ a{
 }
 #editObj{
 	display: none;
+}
+.search-box{
+	position: absolute;
+	left: 1vw;
+	top:15px;
+	height: 30px;
+	border-radius: 30px;
+	background: #ffa207;
+	padding: 5px;
+}
+.search-btn{
+	color:#fff;
+	float: right;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: rgba(255,255,255,.3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.search-btn:hover{
+	transform: scale(1.2);
+	transition: all .5s;
+}
+.search-box:hover > #searching{
+	width: 240px;
+	padding: 0 6px;
+}
+.search-box:hover > search-btn{
+	background: white;
+}
+#searching{
+	background: none;
+	border: none;
+	outline: none;
+	float: left;
+	padding: 0;
+	color: white;
+	font-size: 16px;
+	transition: .4s;
+	line-height: 30px;
+	width: 0px;
+	margin:0;
+}
+#setObj table input,select{
+	background-color: #ffa207;
+	border:0;
+	color:#ffdbae;
+	box-shadow: 0 0 5px #000;
+	padding: 0 5px;
+}
+input,select:focus{
+	outline:none;
 }

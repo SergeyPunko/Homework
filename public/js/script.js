@@ -88,7 +88,8 @@ class Worker extends TypeWorker{
 
 const arrObj = [];
 for(let i=0;i<getRequest().length;i++){
-	arrObj.push(new Worker(getRequest()[i].typework , getRequest()[i].firstname , getRequest()[i].secondname , getRequest()[i].thirdname , getRequest()[i].age , getRequest()[i].sex , getRequest()[i].specialty , getRequest()[i].experience , getRequest()[i].position));
+	let {typework,firstname,secondname,thirdname,age,sex,specialty,experience,position}=getRequest()[i];
+	arrObj.push(new Worker(typework,firstname,secondname,thirdname,age,sex,specialty,experience,position));
 }
 if(arrObj!=0){
 	document.getElementById('viewObj').style.display="block";
@@ -117,6 +118,8 @@ function editObject(num){
 		pos=getValue(positionveh);
 	}
 	titletable();
+	arrObj[num].setInfo(getValue(typeObj),document.getElementById('firstname').value,document.getElementById('secondname').value,document.getElementById('thirdname').value,document.getElementById('setage').value,getSex(),document.getElementById('specialty').value,document.getElementById('experience').value,pos);
+
 	if(!validate()) return;
 	putRequest(getData[num].id , arrObj[num]);
 	for(let i=0;i<arrObj.length;i++){	
@@ -142,6 +145,19 @@ document.getElementById('addObj').addEventListener("click",function(){
 			document.getElementById('addObj').textContent="Отмена";
 	}
 });
+document.getElementsByClassName('search-btn')[0].addEventListener("click",function(){
+	[_secondname="Фамилия",_firstname="Имя",_thirdname="Отчество",]=document.getElementById('searching').value.split(" ");
+	for(let i=0;i<arrObj.length;i++){
+		if(arrObj[i].firstname==_firstname && arrObj[i].secondname==_secondname && arrObj[i].thirdname==_thirdname){
+			let objStringified = JSON.stringify(getRequest()[i].id);
+		    let objStringifiedAndEncoded = encodeURIComponent(objStringified);
+		    document.location.href = "info.html?" + objStringifiedAndEncoded; 
+		    return;
+		} 
+	}
+	alert("Пользователь "+_secondname+" "+_firstname+" "+_thirdname+" не найден");
+});
+
 
 
 function choose() {
@@ -263,17 +279,26 @@ function getRequest (){
 }
 
 function putRequest (items, postArgument) {
-	xhr.open("PUT", "/worker-man/"+items, false);
-	xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-	let json = JSON.stringify(postArgument);
-	xhr.send(json);
+	return fetch(/worker-man/+items, {
+    	method: 'PUT',
+    	body: JSON.stringify(postArgument),
+    	headers: {
+	       'Accept': 'application/json',
+	       'Content-Type': 'application/json'
+	    }
+ 	}).then(response => response.json());
 }
 
 function postRequest (postArgument) {
-	xhr.open("POST", '/worker-man', false)
-	xhr.setRequestHeader('Content-type', 'application/json');
 	let json = JSON.stringify(postArgument);
-	xhr.send(json);
+	return fetch(/worker-man/, {
+    	method: 'POST',
+    	body: json,
+    	headers: {
+	       'Accept': 'application/json',
+	       'Content-Type': 'application/json'
+	    }
+ 	}).then(response => response.json());
 }
 
 function setterObj(num){
@@ -332,4 +357,3 @@ function clearobject(){
      	}
 	}
 }
-
